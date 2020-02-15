@@ -37,7 +37,7 @@ php changer.php
 
 ```bash
 ./changer.php
-```
+
 
 Validator: Genesis Lab
 Validator: Monster Node 2.0
@@ -52,5 +52,7 @@ Validator: CAT
 Validator: Validator.center
 Validator: Minter Capital
 Validator: ConsulNode
+```
 
 и созданный файл
+
