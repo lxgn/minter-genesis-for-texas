@@ -3,16 +3,30 @@
 
 error_reporting(0);
 
-$data = "2020-02-20";
-$time = "18:40:00";
+
+// ----------- set start time for genesis
+$data = "2020-02-16";
+$time = "10:00:00";
 
 $net_name = "minter-texas-12";
 
-
+// ------------ select genesis file
 $gf = "genesis.json";
 $g = file_get_contents($gf);
 $g2 = $g;
 
+
+// ==================== get validators with status = 2
+$a = "status_nodes_autostart.txt";
+$a = file_get_contents($a);
+$a = trim($a);
+$mas = explode("\n",$a);
+foreach($mas as $line)
+{
+    $t = explode(" ",$line);
+    $autostart[$t[0]] = $t[0];
+}
+// -------------------------------
 
 $devider = "<!-- liksagen -->";
 
@@ -63,11 +77,33 @@ foreach($preg_mas as $k=>$preg)
     $g2 = str_replace($reg[1],$val,$g2);
 }
 
+$g2 = str_replace("BIP","MNT",$g2);
+
+
+//print_r($a);
+
+// ----------- set if(0) for skip change modify status
+if(1)
+{
+$a = json_decode($g2,1);
+$nn=0;
+foreach($a[app_state][candidates] as $num=>$v)
+{
+    $nn++;
+//    print $nn."\t".$v[pub_key]."\t".$v[status]."\n";
+    if(isset($autostart[$v[pub_key]]))$a[app_state][candidates][status] = 2;
+    else $a[app_state][candidates][status] = 1;
+    print $nn."\t".$v[pub_key]."\tstatus:".$a[app_state][candidates][status]."\n";
+}
+$o += JSON_PRETTY_PRINT;
+$g2 = json_encode($a,$o);
+}
+//-----------------------------
 
 
 
-
-$file = dirname($gf)."/genesis.".date("Y-m-d-H-i-s").".json";
+//$file = dirname($gf)."/genesis.".date("Y-m-d-H-i-s").".json";
+$file = dirname($gf)."/genesis.new.json";
 file_put_contents($file,$g2);
 
 ?>
