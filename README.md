@@ -33,3 +33,24 @@ php changer.php
 Для исключения дубликатов - обратабатывается файл валидаторов, меняются адреса с маиннета, на указанные для тестнета, и наоборот.
 
 
+## 6. Результат работы
+
+```bash
+./changer.php
+```
+
+Validator: Genesis Lab
+Validator: Monster Node 2.0
+Validator: Rundax
+Validator: Minter Center
+Validator: StakeHolder
+Validator: PRO-BLOCKCHAIN
+Validator: ONLY1
+Validator: The Node
+Validator: U-node
+Validator: CAT
+Validator: Validator.center
+Validator: Minter Capital
+Validator: ConsulNode
+
+и созданный файл
