@@ -22,7 +22,7 @@ php changer.php
 
 В файле можно изменить время старта сети.
 
-## 4. Результат
+## 4. Результат работы скрипта
 
 Измененный файл в формате genesis.YYYY-MM-DD-HH-MM-SS.json
 
@@ -33,7 +33,7 @@ php changer.php
 Для исключения дубликатов - обратабатывается файл валидаторов, меняются адреса с маиннета, на указанные для тестнета, и наоборот.
 
 
-## 6. Результат работы
+## 6. Результат вывода на экран
 
 ```bash
 ./changer.php
@@ -52,6 +52,8 @@ Validator: CAT
 Validator: Validator.center
 Validator: Minter Capital
 Validator: ConsulNode
+Validator: BTC.Secure
+
 ```
 
 и созданный файл
