@@ -3,10 +3,12 @@
 
 error_reporting(0);
 
-
 // ----------- set start time for genesis
 $data = "2020-02-16";
 $time = "10:00:00";
+
+//$data = "2020-02-15";
+//$time = "23:00:00";
 
 $net_name = "minter-texas-12";
 
@@ -52,6 +54,7 @@ foreach($mas as $line)
 	$t = explode(" ",$line);
 	$from = $t[0];
 	$to = $t[2];
+//	if(substr($from,0,2)=="Mp")print $to." $name\n";
 	//print_r($t);
 	$g2 = str_replace($to,$devider,$g2);
 	$g2 = str_replace($from,$to,$g2);
@@ -85,25 +88,56 @@ $g2 = str_replace("BIP","MNT",$g2);
 // ----------- set if(0) for skip change modify status
 if(1)
 {
-$a = json_decode($g2,1);
+$a = json_decode($g2);
+//print_r($a->app_state->candidates);
 $nn=0;
-foreach($a[app_state][candidates] as $num=>$v)
+$b = $a->app_state->candidates;
+
+foreach($b as $num=>$v)
 {
     $nn++;
-//    print $nn."\t".$v[pub_key]."\t".$v[status]."\n";
-    if(isset($autostart[$v[pub_key]]))$a[app_state][candidates][status] = 2;
-    else $a[app_state][candidates][status] = 1;
-    print $nn."\t".$v[pub_key]."\tstatus:".$a[app_state][candidates][status]."\n";
+    $preg = "/((\"pub_key\": \"".$v->pub_key."\",[\s]{1,1000}\"commission\":.*?\"status\":[\s]{1,100})([\d]))/sim";
+    preg_match($preg,$g2,$reg);
+    unset($reg);
+	preg_match($preg,$g2,$reg);
+
+    if(isset($autostart[$v->pub_key]))
+    {
+	$g2 = str_replace($reg[1],$reg[2]."2",$g2);
+    }
+    else 
+    {
+	$g2 = str_replace($reg[1],$reg[2]."1",$g2);
+    $preg2 = "/\{[\s]{1,100}\"total_bip_stake\": \"[\d]{1,100}\",[\s]{1,100}\"pub_key\": \"".$v->pub_key."\",[\s]{1,100}\"accum_reward\": \"[\d]{1,100}\",[\s]{1,100}\"absent_times\": \".*?\"[\s]{1,100}\}/sim";
+    unset($reg2);
+    preg_match($preg2,$g2,$reg2);
+$t = $reg2[0];
+$t = trim($t);
+if($t)
+{
+$t2 = $t.",";
+    $g2 = str_replace($t2,"",$g2);
+    $g2 = str_replace($t,"",$g2);
 }
-$o += JSON_PRETTY_PRINT;
-$g2 = json_encode($a,$o);
+    }
+    //------------
+    
+}
 }
 //-----------------------------
 
+$g2 = preg_replace("/\n[\s]{1,1000}\n/sim","\n",$g2);
+$preg = "/(\"validators\": \[.*?)\,([\s]{1,100}])/sim";
+unset($reg);
+preg_match($preg,$g2,$reg);
+if($reg[1])
+{
+print_r($reg);
+$g2 = str_replace($reg[0],$reg[1].$reg[2],$g2);
+}
 
-
-//$file = dirname($gf)."/genesis.".date("Y-m-d-H-i-s").".json";
 $file = dirname($gf)."/genesis.new.json";
 file_put_contents($file,$g2);
 
+print " end\n";
 ?>
