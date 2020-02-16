@@ -5,12 +5,12 @@ error_reporting(0);
 
 // ----------- set start time for genesis
 $data = "2020-02-16";
-$time = "10:00:00";
+$time = "12:10:00";
 
 //$data = "2020-02-15";
 //$time = "23:00:00";
 
-$net_name = "minter-texas-12";
+$net_name = "minter-texas-13";
 
 // ------------ select genesis file
 $gf = "genesis.json";
@@ -80,7 +80,9 @@ foreach($preg_mas as $k=>$preg)
     $g2 = str_replace($reg[1],$val,$g2);
 }
 
-$g2 = str_replace("BIP","MNT",$g2);
+$g2 = str_replace("BIP",$devider,$g2);
+$g2 = str_replace("MNT","BIP",$g2);
+$g2 = str_replace($devider,"MNT",$g2);
 
 
 //print_r($a);
