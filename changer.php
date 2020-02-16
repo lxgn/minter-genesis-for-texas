@@ -5,7 +5,7 @@ error_reporting(0);
 
 // ----------- set start time for genesis
 $data = "2020-02-16";
-$time = "12:10:00";
+$time = "12:15:00";
 
 //$data = "2020-02-15";
 //$time = "23:00:00";
