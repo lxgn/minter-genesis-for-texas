@@ -132,12 +132,11 @@ unset($reg);
 preg_match($preg,$g2,$reg);
 if($reg[1])
 {
-print_r($reg);
+//print_r($reg);
 $g2 = str_replace($reg[0],$reg[1].$reg[2],$g2);
 }
 
 $file = dirname($gf)."/genesis.new.json";
 file_put_contents($file,$g2);
 
-print " end\n";
 ?>
