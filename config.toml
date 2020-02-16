@@ -7,7 +7,7 @@
 moniker = "TexasNode14"
 
 # Address to listen for API connections
-api_listen_addr = "tcp://127.0.0.1:8841"
+api_listen_addr = "tcp://0.0.0.0:8841"
 
 # Sets node to be in validator mode. Disables API, events, history of blocks, indexes, etc.
 validator_mode = false
