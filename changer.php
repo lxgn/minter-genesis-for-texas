@@ -80,9 +80,9 @@ foreach($preg_mas as $k=>$preg)
     $g2 = str_replace($reg[1],$val,$g2);
 }
 
-$g2 = str_replace("BIP",$devider,$g2);
-$g2 = str_replace("MNT","BIP",$g2);
-$g2 = str_replace($devider,"MNT",$g2);
+$g2 = str_replace('"BIP"',$devider,$g2);
+$g2 = str_replace('"MNT"','"BIP"',$g2);
+$g2 = str_replace($devider,'"MNT"',$g2);
 
 
 //print_r($a);
